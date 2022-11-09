@@ -1,0 +1,41 @@
+package query
+
+import (
+	"github.com/spf13/cobra"
+)
+
+var (
+	purposeFlag          uint8
+	heightFlag           uint64
+	addressFlag          string
+	previewFlag          bool
+	resourceIDFlag       string
+	hashFlag             string
+	startFlag            uint64
+	endFlag              uint64
+	skipRametronenterpriseFlag     bool
+	includeEthTxHashFlag bool
+)
+
+// QueryCmd represents the query command
+var QueryCmd = &cobra.Command{
+	Use:   "query",
+	Short: "Query entities stored in blockchain",
+}
+
+func init() {
+	QueryCmd.AddCommand(statusCmd)
+	QueryCmd.AddCommand(accountCmd)
+	QueryCmd.AddCommand(metatronCmd)
+	QueryCmd.AddCommand(blockCmd)
+	QueryCmd.AddCommand(txCmd)
+	QueryCmd.AddCommand(splitRuleCmd)
+	QueryCmd.AddCommand(vcpCmd)
+	QueryCmd.AddCommand(gcpCmd)
+	QueryCmd.AddCommand(rametronenterprisepCmd)
+	QueryCmd.AddCommand(rametronenterpriseCmd)
+	QueryCmd.AddCommand(srdrsCmd)
+	QueryCmd.AddCommand(stakeReturnsCmd)
+	QueryCmd.AddCommand(peersCmd)
+	QueryCmd.AddCommand(versionCmd)
+}

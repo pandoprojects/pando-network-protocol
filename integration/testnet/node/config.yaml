@@ -1,0 +1,15 @@
+
+# Pando configuration for privatenet
+genesis:
+  hash: "0x8984aee9380ed6d0af14939b7886732e760c1c3d2d3e6bfc1e617ec00471a4c9"
+p2p:
+  port: 12000
+  seeds: 13.215.167.232:12000
+  seedPeerOnlyOutbound: true
+  address: 127.0.0.1
+log:
+  levels: "*:info,guardian:debug"
+storage:
+  statePruningRetainedBlocks: 2048
+rpc:
+  enabled: true

@@ -1,0 +1,15 @@
+
+# Pando configuration for mainnet
+genesis:
+  hash: "0x294191fdd2a46c213dbb34dd61a873a293604080f6d5372a6e005a1673426b7a"
+p2p:
+  port: 12000
+  seeds: 13.215.167.232:12000,18.139.185.33:12000,13.212.164.191:12000
+  seedPeerOnlyOutbound: true
+  address: 127.0.0.1
+log:
+  levels: "*:info,guardian:debug"
+storage:
+  statePruningRetainedBlocks: 2048
+rpc:
+  enabled: true
