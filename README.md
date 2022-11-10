@@ -155,11 +155,10 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 * Smart contract and DApp development Overview: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts).
 
-* Tutorials on how to interact with the Pando blockchain through [Metamask](https://docs.pandoprojects.org/docs/web3-stack-metamask), [Truffle](https://docs.pandoprojects.org/docs/web3-stack-truffle), [web3.js](https://docs.pandoprojects.org/docs/web3-stack-web3js), and [ethers.js](https://docs.pandoprojects.org/docs/web3-stack-hardhat).
+* PNC20 integration guide: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts/pnc-20).
 
-* TNT20 Token (i.e. ERC20 on Pando) integration guide: [link here](https://docs.pandoprojects.org/docs/pando-blockchain-tnt20-token-integration-guide).
+* PNC721 integration guide: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts/pnc-721).
 
-  
 
 ### Local Test Environment Setup
 
