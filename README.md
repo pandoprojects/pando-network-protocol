@@ -9,7 +9,7 @@ Signature Gossip".
 
   
 
-To learn more about the Pando Network in general, please visit the **Pando Documentation site**: https://docs.pandoprojects.org/docs/what-is-pando-network.
+To learn more about the Pando Network in general, please visit the **Pando Documentation site**:https://docs.pandoproject.org/pandoproject/pando-network-testament
 
   
 
@@ -153,9 +153,9 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 ### Smart Contracts
 
-* Smart contract and DApp development Overview: [link here](https://docs.pandoprojects.org/docs/turing-complete-smart-contract-support).
+* Smart contract and DApp development Overview: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts).
 
-* Tutorials on how to interact with the Pando blockchain through [Metamask](https://docs.pandoprojects.org/docs/web3-stack-metamask), [Truffle](https://docs.pandoprojects.org/docs/web3-stack-truffle), [Hardhat](https://docs.pandoprojects.org/docs/web3-stack-hardhat), [web3.js](https://docs.pandoprojects.org/docs/web3-stack-web3js), and [ethers.js](https://docs.pandoprojects.org/docs/web3-stack-hardhat).
+* Tutorials on how to interact with the Pando blockchain through [Metamask](https://docs.pandoprojects.org/docs/web3-stack-metamask), [Truffle](https://docs.pandoprojects.org/docs/web3-stack-truffle), [web3.js](https://docs.pandoprojects.org/docs/web3-stack-web3js), and [ethers.js](https://docs.pandoprojects.org/docs/web3-stack-hardhat).
 
 * TNT20 Token (i.e. ERC20 on Pando) integration guide: [link here](https://docs.pandoprojects.org/docs/pando-blockchain-tnt20-token-integration-guide).
 
@@ -163,9 +163,9 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 ### Local Test Environment Setup
 
-* Launching a local privatenet: [link here](https://docs.pandoprojects.org/docs/launch-a-local-pandonet).
+* Launching a local privatenet: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration#launch-a-local-private-net).
 
-* Command line tools: [link here](https://docs.pandoprojects.org/docs/command-line-tool).
+* Command line tools: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/command-line-tool).
 
 * Connect to the [Testnet](https://docs.pandoprojects.org/docs/connect-to-the-testnet), and the [Mainnet](https://docs.pandoprojects.org/docs/connect-to-the-mainnet).
 
@@ -175,6 +175,6 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 ### API References
 
-* Native RPC API references: [link here](https://docs.pandoprojects.org/docs/rpc-api-reference).
+* Native RPC API references: [link here](https://chainapi.pandoproject.org/#e3785136-4a50-4472-9226-7ac827a0fbf4).
 
 * Ethereum RPC API support: [link here](https://docs.pandoprojects.org/docs/web3-stack-eth-rpc-support).
