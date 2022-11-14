@@ -1,10 +1,10 @@
 
-# Pando configuration for privatenet
+# Pando configuration for testnet
 genesis:
-  hash: "0x8984aee9380ed6d0af14939b7886732e760c1c3d2d3e6bfc1e617ec00471a4c9"
+  hash: "0x0ba0659c8680d05a25e95e46da98ebb4493c8477b2e0e5468110a93ac497dfe3"
 p2p:
   port: 12000
-  seeds: 13.215.167.232:12000
+  seeds: 13.215.118.4:12000
   seedPeerOnlyOutbound: true
   address: 127.0.0.1
 log:

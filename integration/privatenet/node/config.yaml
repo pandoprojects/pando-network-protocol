@@ -1,7 +1,7 @@
 
-# Pando configuration for testnet
+# Pando configuration for privatenet generate hash for privatent using tools generate geneis 
 genesis:
-  hash: "0x8984aee9380ed6d0af14939b7886732e760c1c3d2d3e6bfc1e617ec00471a4c9"
+  hash: ""
 p2p:
   port: 12000
   seeds: 
