@@ -23,25 +23,25 @@ To learn more about the Pando Network in general, please visit the **Pando offic
 
   
 
-[## Rametron's Description](https://docs.pandoproject.org/pandoproject/rametron-node)
+## Rametron's Description
 
 
 Rametron nodes are instances of the cluster between the user and cluster's machines. Users can run their jobs on the rametron node instead of doing it directly on the master nodes, which are critical for the overall functioning. This way you can prevent capacity losses on these nodes.
   
 
-[### Rametron Enterprise] (https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#1.-rametron-enterprises-layer) 
+[### Rametron Enterprise](https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#1.-rametron-enterprises-layer) 
 
 Rametron Enterprise can have a stake of more than 35000 ptx only for a locking period of a year. Till the period a reward of 15% would be maintained. After the locking period the whole amount could be withdrawn at once by simply withdrawing stake .
 
-### Rametron Pro
+[### Rametron Pro](https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#2.-rametron-pro-layer)
 
 Rametron Pro can have a stake of more than 10000 ptx only for a locking period of a year. Till the period a reward of 12% would be maintained. After the locking period the whole amount could be withdrawn at once by simply withdrawing the stake.
 
-### Rametron Lite
+[### Rametron Lite](https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#rametron-lite-layer)
 
 Rametron Lite can have a stake of more than 1000 ptx only for a locking period of a year. Till the period a reward of 10% would be maintained. After the locking period the whole amount could be withdrawn at once by simply withdrawing the stake.
 
-### Rametron Mobile 
+[### Rametron Mobile](https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#rametron-mobile-layer)
 
 Rametron Mobile  can have a stake of more than 250 ptx only for a locking period of a year. Till the period a reward of 10% would be maintained. After the locking period the whole amount could be withdrawn at once by simply withdrawing the stake.
 
@@ -72,7 +72,7 @@ brew link go@1.14.1 --force
 
   
 
-### Build and Install
+[### Build and Install] (https://docs.pandoproject.org/pandoproject/blockchain-integration#build-and-install)
 
   
 
@@ -166,9 +166,9 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 * Command line tools: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/command-line-tool).
 
-* Connect to the [Testnet](https://docs.pandoprojects.org/docs/connect-to-the-testnet), and the [Mainnet](https://docs.pandoprojects.org/docs/connect-to-the-mainnet).
+* Connect to the [Testnet](https://docs.pandoproject.org/pandoproject/blockchain-integration/connect-to-the-testnet-and-mainnet#connect-to-the-testnet), and the [Mainnet](https://docs.pandoproject.org/pandoproject/blockchain-integration/connect-to-the-testnet-and-mainnet#connect-to-the-mainnet).
 
-* Node configuration: [link here](https://docs.pandoprojects.org/docs/pando-blockchain-node-configuration).
+* Node configuration: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/configuration).
 
   
 
@@ -176,4 +176,4 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 * Native RPC API references: [link here](https://chainapi.pandoproject.org/#e3785136-4a50-4472-9226-7ac827a0fbf4).
 
-* Ethereum RPC API support: [link here](https://docs.pandoprojects.org/docs/web3-stack-eth-rpc-support).
+* Ethereum RPC API support: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts/ethereum-rpc-api-support).
