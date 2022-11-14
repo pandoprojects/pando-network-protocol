@@ -3,13 +3,13 @@
 
   
 
-The Pando Blockchain Ledger is a Proof-of-Stake decentralized ledger designed for the video streaming industry. It powers the Pando token economy which incentives end users to share their redundant bandwidth and storage resources, and encourage them to engage more actively with video platforms and content creators. The ledger employs a novel [multi-level BFT consensus engine](docs/multi-level-bft-tech-report.pdf), which supports high transaction throughput, fast block confirmation, and allows mass participation in the consensus process. Off-chain payment support is built directly into the ledger through the resource-oriented micropayment pool, which is designed specifically to achieve the “pay-per-byte” granularity for streaming use cases. Moreover, the ledger storage system leverages the microservice architecture and reference counting based history pruning techniques, and is thus able to adapt to different computing environments, ranging from high-end data center server clusters to commodity PCs and laptops. The ledger also supports Turing-Complete smart contracts, which enables rich user experiences for DApps built on top of the Pando Ledger. For more technical details, please refer to our [technical whitepaper](docs/pando-technical-whitepaper.pdf) and [2019 IEEE ICBC paper](https://arxiv.org/pdf/1911.04698.pdf) "Scalable BFT Consensus Mechanism Through Aggregated
+The Pando Blockchain Ledger is a Proof-of-Stake decentralized ledger designed for the video streaming industry. It powers the Pando token economy which incentives end users to share their redundant bandwidth and storage resources, and encourage them to engage more actively with video platforms and content creators. The ledger employs a novel [multi-level BFT consensus engine], which supports high transaction throughput, fast block confirmation, and allows mass participation in the consensus process. Off-chain payment support is built directly into the ledger through the resource-oriented micropayment pool, which is designed specifically to achieve the “pay-per-byte” granularity for streaming use cases. Moreover, the ledger storage system leverages the microservice architecture and reference counting based history pruning techniques, and is thus able to adapt to different computing environments, ranging from high-end data center server clusters to commodity PCs and laptops. The ledger also supports Turing-Complete smart contracts, which enables rich user experiences for DApps built on top of the Pando Ledger. For more technical details, please refer to our [Offical Documentation](https://docs.pandoproject.org/) and [2019 IEEE ICBC paper](https://arxiv.org/pdf/1911.04698.pdf) "Scalable BFT Consensus Mechanism Through Aggregated
 
 Signature Gossip".
 
   
 
-To learn more about the Pando Network in general, please visit the **Pando Documentation site**:https://docs.pandoproject.org/pandoproject/pando-network-testament
+To learn more about the Pando Network in general, please visit the **Pando official Documentation site**:https://docs.pandoproject.org/pandoproject/pando-network-testament
 
   
 
@@ -23,13 +23,13 @@ To learn more about the Pando Network in general, please visit the **Pando Docum
 
   
 
-## Rametron's Description
+[## Rametron's Description](https://docs.pandoproject.org/pandoproject/rametron-node)
 
 
 Rametron nodes are instances of the cluster between the user and cluster's machines. Users can run their jobs on the rametron node instead of doing it directly on the master nodes, which are critical for the overall functioning. This way you can prevent capacity losses on these nodes.
   
 
-### Rametron Enterprise 
+[### Rametron Enterprise] (https://docs.pandoproject.org/pandoproject/rametron-node/network-layering-rametrons#1.-rametron-enterprises-layer) 
 
 Rametron Enterprise can have a stake of more than 35000 ptx only for a locking period of a year. Till the period a reward of 15% would be maintained. After the locking period the whole amount could be withdrawn at once by simply withdrawing stake .
 
