@@ -4,7 +4,7 @@ genesis:
   hash: ""
 p2p:
   port: 12000
-  seeds: 
+   seeds:
   seedPeerOnlyOutbound: true
   address: 127.0.0.1
 log:
