@@ -34,7 +34,7 @@ type MetatronResult struct {
 func doMetatronCmd(cmd *cobra.Command, args []string) {
 	client := rpcc.NewRPCClient(viper.GetString(utils.CfgRemoteRPCEndpoint))
 
-	res, err := client.Call("pando.GetmetatronInfo", rpc.GetGuardianInfoArgs{})
+	res, err := client.Call("pando.GetGuardianInfo", rpc.GetGuardianInfoArgs{})
 	if err != nil {
 		utils.Error("Failed to get metatron info: %v\n", err)
 	}

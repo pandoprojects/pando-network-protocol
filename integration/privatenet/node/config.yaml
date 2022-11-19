@@ -1,5 +1,5 @@
 
-# Pando configuration for privatenet generate hash for privatent using tools generate geneis 
+# Pando configuration for privatenet
 genesis:
   hash: ""
 p2p:

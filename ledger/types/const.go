@@ -25,7 +25,7 @@ const (
 	// MinimumTransactionFeePTXWei specifies the minimum fee for a regular transaction
 	MinimumTransactionFeePTXWei uint64 = 1e12
 
-	// June 2021 gas burn adjustment
+	// June 2022 gas burn adjustment
 
 	// MinimumGasPrice is the minimum gas price for a smart contract transaction
 	MinimumGasPriceDec2022 uint64 = 4e12
@@ -34,7 +34,7 @@ const (
 	MaximumTxGasLimitDec2022 uint64 = 20e6
 
 	// MinimumTransactionFeePTXWei specifies the minimum fee for a regular transaction
-	MinimumTransactionFeePTXWeiDec2022 uint64 = 3e17
+	MinimumTransactionFeePTXWeiDec2022 uint64 = 3e15
 	
 	// MaxAccountsAffectedPerTx specifies the max number of accounts one transaction is allowed to modify to avoid spamming
 	MaxAccountsAffectedPerTx = 512
