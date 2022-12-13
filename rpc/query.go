@@ -566,7 +566,7 @@ func (t *PandoRPCService) GetStatus(args *GetStatusArgs, result *GetStatusResult
 // ------------------------------ GetPeerURLs -----------------------------------
 
 type GetPeerURLsArgs struct {
-	SkipEdgeNode bool `json:"skip_edge_node"`
+	skipRametronenterprise bool `json:"skip_edge_node"`
 }
 
 type GetPeerURLsResult struct {
@@ -574,7 +574,7 @@ type GetPeerURLsResult struct {
 }
 
 func (t *PandoRPCService) GetPeerURLs(args *GetPeersArgs, result *GetPeerURLsResult) (err error) {
-	peerURLs := t.dispatcher.PeerURLs(args.SkipEdgeNode)
+	peerURLs := t.dispatcher.PeerURLs(args.skipRametronenterprise)
 
 	numPeers := len(peerURLs)
 	rand.Seed(time.Now().UnixNano())
@@ -592,7 +592,7 @@ func (t *PandoRPCService) GetPeerURLs(args *GetPeersArgs, result *GetPeerURLsRes
 // ------------------------------ GetPeers -----------------------------------
 
 type GetPeersArgs struct {
-	SkipEdgeNode bool `json:"skip_edge_node"`
+	skipRametronenterprise bool `json:"skip_edge_node"`
 }
 
 type GetPeersResult struct {
@@ -600,7 +600,7 @@ type GetPeersResult struct {
 }
 
 func (t *PandoRPCService) GetPeers(args *GetPeersArgs, result *GetPeersResult) (err error) {
-	peers := t.dispatcher.Peers(args.SkipEdgeNode)
+	peers := t.dispatcher.Peers(args.skipRametronenterprise)
 	result.Peers = peers
 
 	return

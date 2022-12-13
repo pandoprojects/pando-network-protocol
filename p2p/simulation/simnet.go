@@ -177,7 +177,7 @@ func (se *SimnetEndpoint) Wait() {
 }
 
 // Broadcast implements the Network interface.
-func (se *SimnetEndpoint) Broadcast(message p2ptypes.Message, skipEdgeNode bool) (successes chan bool) {
+func (se *SimnetEndpoint) Broadcast(message p2ptypes.Message, skipRametronenterprise bool) (successes chan bool) {
 	successes = make(chan bool, 10)
 	go func() {
 		se.network.AddMessage(Envelope{From: se.ID(), Content: message.Content})
@@ -187,7 +187,7 @@ func (se *SimnetEndpoint) Broadcast(message p2ptypes.Message, skipEdgeNode bool)
 }
 
 // BroadcastToNeighbors implements the Network interface.
-func (se *SimnetEndpoint) BroadcastToNeighbors(message p2ptypes.Message, maxNumPeersToBroadcast int, skipEdgeNode bool) (successes chan bool) {
+func (se *SimnetEndpoint) BroadcastToNeighbors(message p2ptypes.Message, maxNumPeersToBroadcast int, skipRametronenterprise bool) (successes chan bool) {
 	successes = make(chan bool, 10)
 	go func() {
 		se.network.AddMessage(Envelope{From: se.ID(), Content: message.Content})
@@ -205,12 +205,12 @@ func (se *SimnetEndpoint) Send(id string, message p2ptypes.Message) bool {
 }
 
 // Peers returns the IDs of all peers
-func (se *SimnetEndpoint) Peers(skipEdgeNode bool) []string {
+func (se *SimnetEndpoint) Peers(skipRametronenterprise bool) []string {
 	return []string{}
 }
 
 // PeerURLs returns the URLs of all peers
-func (se *SimnetEndpoint) PeerURLs(skipEdgeNode bool) []string {
+func (se *SimnetEndpoint) PeerURLs(skipRametronenterprise bool) []string {
 	return []string{}
 }
 

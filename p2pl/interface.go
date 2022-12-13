@@ -43,19 +43,19 @@ type Network interface {
 	Publish(message types.Message) error
 
 	// Broadcast publishes the given message
-	Broadcast(message types.Message, skipEdgeNode bool) chan bool
+	Broadcast(message types.Message, skipRametronenterprise bool) chan bool
 
 	// BroadcastToNeighbors broadcasts the given message to the neighboring peers
-	BroadcastToNeighbors(message types.Message, maxNumPeersToBroadcast int, skipEdgeNode bool) chan bool
+	BroadcastToNeighbors(message types.Message, maxNumPeersToBroadcast int, skipRametronenterprise bool) chan bool
 
 	// Send sends the given message to the peer specified by the peerID
 	Send(peerID string, message types.Message) bool
 
 	// Peers return the IDs of all peers
-	Peers(skipEdgeNode bool) []string
+	Peers(skipRametronenterprise bool) []string
 
 	// PeerURLs return the URLs of all peers
-	PeerURLs(skipEdgeNode bool) []string
+	PeerURLs(skipRametronenterprise bool) []string
 
 	// PeerExists indicates if the given peerID is a neighboring peer
 	PeerExists(peerID string) bool

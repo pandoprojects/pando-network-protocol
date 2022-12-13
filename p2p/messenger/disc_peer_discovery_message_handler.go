@@ -162,8 +162,8 @@ func (pdmh *PeerDiscoveryMessageHandler) HandleMessage(msg types.Message) error 
 }
 
 func (pdmh *PeerDiscoveryMessageHandler) handlePeerAddressRequest(peer *pr.Peer, message PeerDiscoveryMessage) {
-	skipEdgeNode := (peer.NodeType() == common.NodeTypeBlockchainNode)
-	peerIDAddrs := pdmh.discMgr.peerTable.GetSelection(skipEdgeNode)
+	skipRametronenterprise := (peer.NodeType() == common.NodeTypeBlockchainNode)
+	peerIDAddrs := pdmh.discMgr.peerTable.GetSelection(skipRametronenterprise)
 	pdmh.sendAddresses(peer, peerIDAddrs)
 }
 
@@ -204,8 +204,8 @@ func (pdmh *PeerDiscoveryMessageHandler) SetDiscoveryCallback(disccb InboundCall
 
 func (pdmh *PeerDiscoveryMessageHandler) connectToOutboundPeers(addresses []*netutil.NetAddress) {
 	selfNodeType := viper.GetInt(common.CfgNodeType)
-	skipEdgeNode := (selfNodeType == int(common.NodeTypeBlockchainNode)) // a blockchain node only asks other blockchain nodes for peers
-	numPeers := int(pdmh.discMgr.peerTable.GetTotalNumPeers(skipEdgeNode))
+	skipRametronenterprise := (selfNodeType == int(common.NodeTypeBlockchainNode)) // a blockchain node only asks other blockchain nodes for peers
+	numPeers := int(pdmh.discMgr.peerTable.GetTotalNumPeers(skipRametronenterprise))
 	sufficientNumPeers := int(GetDefaultPeerDiscoveryManagerConfig().SufficientNumPeers)
 	numNeeded := sufficientNumPeers - numPeers
 	if numNeeded > 0 {
@@ -257,8 +257,8 @@ func (pdmh *PeerDiscoveryMessageHandler) maintainSufficientConnectivityRoutine()
 // required threshold
 func (pdmh *PeerDiscoveryMessageHandler) maintainSufficientConnectivity() {
 	selfNodeType := viper.GetInt(common.CfgNodeType)
-	skipEdgeNode := (selfNodeType == int(common.NodeTypeBlockchainNode)) // a blockchain node only asks other blockchain nodes for peers
-	peers := *(pdmh.discMgr.peerTable.GetAllPeers(skipEdgeNode))
+	skipRametronenterprise := (selfNodeType == int(common.NodeTypeBlockchainNode)) // a blockchain node only asks other blockchain nodes for peers
+	peers := *(pdmh.discMgr.peerTable.GetAllPeers(skipRametronenterprise))
 	numPeers := uint(len(peers))
 
 	sufficientNumPeers := GetDefaultPeerDiscoveryManagerConfig().SufficientNumPeers
