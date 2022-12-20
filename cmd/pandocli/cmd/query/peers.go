@@ -41,5 +41,5 @@ var peersCmd = &cobra.Command{
 }
 
 func init() {
-	peersCmd.Flags().BoolVar(&skipRametronenterpriseFlag, "skip_rametronenterprise", true, "skip peer rametronenterprise")
+	peersCmd.Flags().BoolVar(&skipRametronenterpriseFlag, "skip_rametronenterprise", false, "skip peer rametronenterprise")
 }

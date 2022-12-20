@@ -109,7 +109,7 @@ func (dp *Dispatcher) SendData(peerIDs []string, datarsp DataResponse) {
 		if datarsp.ChannelID == common.ChannelIDProposal {
 			dp.broadcastToNeighbors(datarsp.ChannelID, datarsp, false /* should send to both blockchain and rametronenterprises */)
 		} else if datarsp.ChannelID == common.ChannelIDGuardian {
-			dp.broadcastToNeighbors(datarsp.ChannelID, datarsp, true /* no need to send guardian votes to rametronenterprises */)
+			dp.broadcastToNeighbors(datarsp.ChannelID, datarsp, false /* no need to send guardian votes to rametronenterprises */)
 		} else if datarsp.ChannelID == common.ChannelIDRametronenterpriseVote {
 			dp.broadcastToNeighbors(datarsp.ChannelID, datarsp, false /* should send to both blockchain and rametronenterprises */)
 		} else if datarsp.ChannelID == common.ChannelIDAggregatedRametronenterpriseVotes {

@@ -262,7 +262,7 @@ func getExternalNetAddress(localAddrIP string, externalPort int, listenerPort in
 		externalAddr = getNaiveExternalAddress(listenerPort)
 	}
 	if externalAddr == nil {
-		logger.Fatalf("Could not determine external address!")
+		//logger.Fatalf("Could not determine external address!")
 	}
 
 	return externalAddr

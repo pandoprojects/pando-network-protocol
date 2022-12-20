@@ -20,12 +20,8 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
-var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(16), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(216), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-// var rametronproPTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(172), weiMultiplier) // 144 PTX per block, corresponds to about 12% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-// var rametronlitePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(144), weiMultiplier) // 144 PTX per block, corresponds to about 10% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-// var rametronmobilePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(144), weiMultiplier) // 144 PTX per block, corresponds to about 10% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-
+var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(13), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var ptxRewardN = 400                                                        // Reward receiver sampling params
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
@@ -164,6 +160,7 @@ func RetrievePools(ledger core.Ledger, chain *blockchain.Chain, db database.Data
 	} else { // blockHeight >= common.HeightEnablePando2
 		// won't reward the rametronenterprise without the guardian votes, since we need to guardian votes to confirm that
 		// the rametronenterprise vote for the correct checkpoint
+		//if no vote will send default reward to all rametron stakers as process
 		if guardianVotes != nil {
 			guradianVoteBlock, err := chain.FindBlock(guardianVotes.Block)
 			if err != nil {
@@ -181,6 +178,7 @@ func RetrievePools(ledger core.Ledger, chain *blockchain.Chain, db database.Data
 				}
 			} else {
 				logger.Warnf("rametronenterprise have no vote for block %v", guardianVotes.Block.Hex())
+				logger.Warnf("default reward is added")
 			}
 		}
 	}
@@ -376,7 +374,10 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 	if !common.IsCheckPointHeight(blockHeight) {
 		return
 	}
-
+		Rametronenterprisep := state.NewRametronenterprisePool(view, true)
+		Rametronenterprises := Rametronenterprisep.GetAll(false)
+		rametronenterpriseTotalStakes := view.GetTotalRametronenterpriseStake()
+		
 	if guardianVotes == nil {
 		// Should never reach here
 		panic("guardianVotes == nil")
@@ -384,37 +385,35 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 
 	logger.Debugf("grantRametronenterpriseReward: guardianVotes = %v, rametronenterpriseVotes = %v", guardianVotes, rametronenterpriseVotes)
 
-	if rametronenterpriseVotes == nil || rametronenterprisePool == nil {
+	if Rametronenterprises == nil || rametronenterpriseTotalStakes == nil {
 		return
 	}
-
+		
 	effectiveStakes := [][]*core.Stake{}          // For compatiblity with old sampling algorithm, stakes from the same staker are grouped together
 	stakeGroupMap := make(map[common.Address]int) // stake source address -> index of the group in the effectiveStakes slice
 
 	totalEffectiveStake := new(big.Int)
 	amplifier := new(big.Int).SetUint64(1e18)
-	for _, 	rametronenterpriseAddr := range rametronenterpriseVotes.Addresses {
-		weight := big.NewInt(int64(rametronenterprisePool.RandomRewardWeight(rametronenterpriseVotes.Block, rametronenterpriseAddr)))
-		rametronenterprise := rametronenterprisePool.Get(rametronenterpriseAddr)
-
-		rametronenterpriseTotalStake := rametronenterprise.TotalStake()
+	for _, 	rametronenterpriseAddr := range Rametronenterprises {
+		
+		weight := big.NewInt(int64(1))
+		rametronenterpriseTotalStake := view.GetTotalRametronenterpriseStake()
 		if rametronenterpriseTotalStake.Cmp(big.NewInt(0)) == 0 {
 			continue
 		}
-
+	
 		amplifiedWeight := big.NewInt(1).Mul(amplifier, weight)
-		for _, stake := range rametronenterprise.Stakes {
+		for _, stake := range rametronenterpriseAddr.Stakes {
 			if stake.Withdrawn {
 				continue
 			}
-
 			// for Rametronenterprise reward calculation
 			effectiveStakeAmount := big.NewInt(1)
 			effectiveStakeAmount.Mul(amplifiedWeight, stake.Amount)
 			effectiveStakeAmount.Div(effectiveStakeAmount, rametronenterpriseTotalStake)
 
 			effectiveStake := &core.Stake{
-				Holder: rametronenterprise.Holder,
+				Holder: rametronenterpriseAddr.Holder,
 				Source: stake.Source,
 				Amount: effectiveStakeAmount,
 			}
@@ -443,7 +442,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 	}
 
 	// the source of the stake divides the block reward proportional to their stake
-	issueFixedReward(effectiveStakes, totalEffectiveStake, accountReward, totalReward, srdsr, "Rametronenterprise  ")
+	issueFixedReward(effectiveStakes, totalEffectiveStake, accountReward, totalReward, srdsr, "rametronenterprise")
 
 }
 

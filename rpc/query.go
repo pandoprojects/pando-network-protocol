@@ -566,7 +566,7 @@ func (t *PandoRPCService) GetStatus(args *GetStatusArgs, result *GetStatusResult
 // ------------------------------ GetPeerURLs -----------------------------------
 
 type GetPeerURLsArgs struct {
-	skipRametronenterprise bool `json:"skip_edge_node"`
+	skipRametronenterprise bool `json:"skip_rametronenterprise"`
 }
 
 type GetPeerURLsResult struct {
@@ -592,7 +592,7 @@ func (t *PandoRPCService) GetPeerURLs(args *GetPeersArgs, result *GetPeerURLsRes
 // ------------------------------ GetPeers -----------------------------------
 
 type GetPeersArgs struct {
-	skipRametronenterprise bool `json:"skip_edge_node"`
+	skipRametronenterprise bool `json:"skip_rametronenterprise"`
 }
 
 type GetPeersResult struct {

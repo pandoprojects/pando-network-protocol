@@ -25,7 +25,7 @@ const (
 	// MinimumTransactionFeePTXWei specifies the minimum fee for a regular transaction
 	MinimumTransactionFeePTXWei uint64 = 1e12
 
-	// June 2022 gas burn adjustment
+	// June 2021 gas burn adjustment
 
 	// MinimumGasPrice is the minimum gas price for a smart contract transaction
 	MinimumGasPriceDec2022 uint64 = 4e12
