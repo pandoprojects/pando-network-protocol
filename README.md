@@ -15,7 +15,7 @@ To learn more about the Pando Network in general, please visit the **Pando Docum
 
 ## Table of Contents
 
-- [Rametron's Description](#Rametron's Description)
+- Rametrons Description
 
 - [Setup](#setup)
 
@@ -23,7 +23,7 @@ To learn more about the Pando Network in general, please visit the **Pando Docum
 
   
 
-## Rametron's Description
+## Rametrons Description
 
 
 Rametron nodes are instances of the cluster between the user and cluster's machines. Users can run their jobs on the rametron node instead of doing it directly on the master nodes, which are critical for the overall functioning. This way you can prevent capacity losses on these nodes.
