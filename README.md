@@ -3,7 +3,7 @@
 
   
 
-The Pando Blockchain Ledger is a Proof-of-Stake decentralized ledger designed for the video streaming industry. It powers the Pando token economy which incentives end users to share their redundant bandwidth and storage resources, and encourage them to engage more actively with video platforms and content creators. The ledger employs a novel [multi-level BFT consensus engine](docs/multi-level-bft-tech-report.pdf), which supports high transaction throughput, fast block confirmation, and allows mass participation in the consensus process. Off-chain payment support is built directly into the ledger through the resource-oriented micropayment pool, which is designed specifically to achieve the “pay-per-byte” granularity for streaming use cases. Moreover, the ledger storage system leverages the microservice architecture and reference counting based history pruning techniques, and is thus able to adapt to different computing environments, ranging from high-end data center server clusters to commodity PCs and laptops. The ledger also supports Turing-Complete smart contracts, which enables rich user experiences for DApps built on top of the Pando Ledger. For more technical details, please refer to our [technical whitepaper](docs/pando-technical-whitepaper.pdf) and [2019 IEEE ICBC paper](https://arxiv.org/pdf/1911.04698.pdf) "Scalable BFT Consensus Mechanism Through Aggregated
+The Pando Blockchain Ledger is a Proof-of-Stake decentralized ledger designed for the video streaming industry. It powers the Pando token economy which incentives end users to share their redundant bandwidth and storage resources, and encourage them to engage more actively with video platforms and content creators. The ledger employs a novel **multi-level BFT consensus engine**, which supports high transaction throughput, fast block confirmation, and allows mass participation in the consensus process. Off-chain payment support is built directly into the ledger through the resource-oriented micropayment pool, which is designed specifically to achieve the “pay-per-byte” granularity for streaming use cases. Moreover, the ledger storage system leverages the microservice architecture and reference counting based history pruning techniques, and is thus able to adapt to different computing environments, ranging from high-end data center server clusters to commodity PCs and laptops. The ledger also supports Turing-Complete smart contracts, which enables rich user experiences for DApps built on top of the Pando Ledger. For more details, please refer to our [whitepaper](https://pandoproject.org/wp-content/themes/pando-project/img/whitepaper.pdf) and [2019 IEEE ICBC paper](https://arxiv.org/pdf/1911.04698.pdf) "Scalable BFT Consensus Mechanism Through Aggregated
 
 Signature Gossip".
 
@@ -15,7 +15,7 @@ To learn more about the Pando Network in general, please visit the **Pando Docum
 
 ## Table of Contents
 
-- [Rametron's Description](#Rametron's-Description)
+- [Rametron's Description](#Rametron's Description)
 
 - [Setup](#setup)
 
@@ -153,28 +153,28 @@ Pando provides full support for Turing-Complete smart contract, and is EVM compa
 
 ### Smart Contracts
 
-* Smart contract and DApp development Overview: [link here](https://docs.pandoprojects.org/docs/turing-complete-smart-contract-support).
+* Smart contract and DApp development Overview: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts).
 
-* Tutorials on how to interact with the Pando blockchain through [Metamask](https://docs.pandoprojects.org/docs/web3-stack-metamask), [Truffle](https://docs.pandoprojects.org/docs/web3-stack-truffle), [Hardhat](https://docs.pandoprojects.org/docs/web3-stack-hardhat), [web3.js](https://docs.pandoprojects.org/docs/web3-stack-web3js), and [ethers.js](https://docs.pandoprojects.org/docs/web3-stack-hardhat).
+* Tutorials on how to interact with the Pando blockchain through [Metamask](https://docs.pandoproject.org/pandoproject/connect-to-metamask).
 
-* TNT20 Token (i.e. ERC20 on Pando) integration guide: [link here](https://docs.pandoprojects.org/docs/pando-blockchain-tnt20-token-integration-guide).
+* PNC20 Token (i.e. ERC20 on Pando) integration guide: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts/pnc-20).
 
   
 
 ### Local Test Environment Setup
 
-* Launching a local privatenet: [link here](https://docs.pandoprojects.org/docs/launch-a-local-pandonet).
+* Launching a local privatenet: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/launch-a-local-private-net).
 
-* Command line tools: [link here](https://docs.pandoprojects.org/docs/command-line-tool).
+* Command line tools: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/command-line-tool).
 
-* Connect to the [Testnet](https://docs.pandoprojects.org/docs/connect-to-the-testnet), and the [Mainnet](https://docs.pandoprojects.org/docs/connect-to-the-mainnet).
+* Connect to the [Testnet](https://docs.pandoproject.org/pandoproject/blockchain-integration/connect-to-the-testnet).
 
-* Node configuration: [link here](https://docs.pandoprojects.org/docs/pando-blockchain-node-configuration).
+* Node configuration: [link here](https://docs.pandoproject.org/pandoproject/blockchain-integration/configuration).
 
   
 
 ### API References
 
-* Native RPC API references: [link here](https://docs.pandoprojects.org/docs/rpc-api-reference).
+* Native RPC API references: [link here](https://chainapi.pandoproject.org/#e3785136-4a50-4472-9226-7ac827a0fbf4).
 
-* Ethereum RPC API support: [link here](https://docs.pandoprojects.org/docs/web3-stack-eth-rpc-support).
+* Ethereum RPC API support: [link here](https://docs.pandoproject.org/pandoproject/smart-contracts/ethereum-rpc-api-support).
