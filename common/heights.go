@@ -1,36 +1,36 @@
 package common
 
 // HeightEnableValidatorReward specifies the minimal block height to enable the validtor PTX reward
-const HeightEnableValidatorReward uint64 = 1 
+const HeightEnableValidatorReward uint64 = 1
 // HeightEnablePando1 specifies the minimal block height to enable the Pando1.0 feature.
-const HeightEnablePando1 uint64 = 1 // 
+const HeightEnablePando1 uint64 = 1 //
 
 // HeightLowermetatronodeStakeThresholdTo1000 specifies the minimal block height to lower the meta Stake Threshold to 1,000 Pando
-const HeightLowerMetaStakeThresholdTo10000 uint64 = 1
+const HeightLowerMetaStakeThresholdTo10000 uint64 = 4417900
 
 // HeightEnableSmartContract specifies the minimal block height to eanble the Turing-complete smart contract support
-const HeightEnableSmartContract uint64 = 10 
+const HeightEnableSmartContract uint64 = 1
 
 // HeightSampleStakingReward specifies the block heigth to enable sampling of staking reward
-const HeightSampleStakingReward uint64 = 10 
+const HeightSampleStakingReward uint64 = 1
 
 // HeightJune2022FeeAdjustment specifies the block heigth to enable transaction fee burning adjustment
-const HeightJune2022FeeAdjustment uint64 = 10 
+const HeightJune2022FeeAdjustment uint64 = 1
 
 // HeightEnablePando2 specifies the minimal block height to enable the Pando2.0 feature.
-const HeightEnablePando2 uint64 = 100 
+const HeightEnablePando2 uint64 = 4417900
 
 // HeightRPCCompatibility specifies the block height to enable Ethereum compatible RPC support
-const HeightRPCCompatibility uint64 = 1 
+const HeightRPCCompatibility uint64 = 1
 
 // HeightTxWrapperExtension specifies the block height to extend the Tx Wrapper
-const HeightTxWrapperExtension uint64 = 10
+const HeightTxWrapperExtension uint64 = 1
 
 // HeightSupportpandoprojectsInSmartContract specifies the block height to support Pando in smart contracts
-const HeightSupportpandoprojectsInSmartContract uint64 = 1 
+const HeightSupportpandoprojectsInSmartContract uint64 = 4417900
 
 // HeightZytaStakeChangedTo10000K specifies the block height to lower the validator stake to 200,000 Pando
-const HeightZytaStakeChangedTo10000K uint64 = 10 
+const HeightZytaStakeChangedTo10000K uint64 = 4417900
 
 
 // CheckpointInterval defines the interval between checkpoints.
