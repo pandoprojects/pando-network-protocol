@@ -157,7 +157,7 @@ p2p:
 `
 
 func init() {
-	viper.SetDefault(CfgNodeType, 2) // 1: blockchain node, 2: Rametronenterprise
+	viper.SetDefault(CfgNodeType, 1) // 1: blockchain node, 2: Rametronenterprise
 	viper.SetDefault(CfgForceValidateSnapshot, false)
 
 	viper.SetDefault(CfgConsensusMaxEpochLength, 12)
