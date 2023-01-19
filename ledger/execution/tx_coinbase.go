@@ -21,7 +21,7 @@ import (
 
 var weiMultiplier = big.NewInt(1e18)
 var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(13), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(12), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var ptxRewardN = 400                                                        // Reward receiver sampling params
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
@@ -101,13 +101,13 @@ func (exec *CoinbaseTxExecutor) sanityCheck(chainID string, view *st.StoreView, 
 	expectedRewards = CalculateReward(exec.consensus.GetLedger(), view, validatorSet, guardianVotes, guardianPool, rametronenterpriseVotes, rametronenterprisePool)
 
 	if len(expectedRewards) != len(tx.Outputs) {
-		//return result.Error("Number of rewarded account is incorrect")
+		return result.Error("Number of rewarded account is incorrect")
 	}
 	for _, output := range tx.Outputs {
 		exp, ok := expectedRewards[string(output.Address[:])]
 		if !ok || !exp.IsEqual(output.Coins) {
-			//return result.Error("Invalid rewards, address %v expecting %v, but is %v",
-				//output.Address, exp, output.Coins)
+			return result.Error("Invalid rewards, address %v expecting %v, but is %v",
+				output.Address, exp, output.Coins)
 		}
 	}
 	return result.OK
@@ -177,8 +177,8 @@ func RetrievePools(ledger core.Ledger, chain *blockchain.Chain, db database.Data
 						rametronenterpriseVotes.Block.Hex(), guardianVotes.Block.Hex())
 				}
 			} else {
-				logger.Warnf("rametronenterprise have no vote for block %v", guardianVotes.Block.Hex())
-				logger.Warnf("default reward is added")
+				// logger.Warnf("rametronenterprise have no vote for block %v", guardianVotes.Block.Hex())
+				// logger.Warnf("default reward is added")
 			}
 		}
 	}
@@ -208,10 +208,10 @@ func CalculateReward(ledger core.Ledger, view *st.StoreView, validatorSet *core.
 		addrs = append(addrs, addr)
 	}
 	sort.Strings(addrs)
-	for _, addr := range addrs {
-		reward := accountReward[addr]
-		logger.Infof("Total reward for account %v : %v", hex.EncodeToString([]byte(addr)), reward)
-	}
+	// for _, addr := range addrs {
+		// reward := accountReward[addr]
+		// logger.Infof("Total reward for account %v : %v", hex.EncodeToString([]byte(addr)), reward)
+	// }
 
 	return accountReward
 }
@@ -374,6 +374,9 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 	if !common.IsCheckPointHeight(blockHeight) {
 		return
 	}
+	if !common.IsCheckPointHeightForRametron(blockHeight) {
+		return
+	}
 		Rametronenterprisep := state.NewRametronenterprisePool(view, true)
 		Rametronenterprises := Rametronenterprisep.GetAll(false)
 		rametronenterpriseTotalStakes := view.GetTotalRametronenterpriseStake()
@@ -383,7 +386,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 		panic("guardianVotes == nil")
 	}
 
-	logger.Debugf("grantRametronenterpriseReward: guardianVotes = %v, rametronenterpriseVotes = %v", guardianVotes, rametronenterpriseVotes)
+	// logger.Debugf("grantRametronenterpriseReward: guardianVotes = %v, rametronenterpriseVotes = %v", guardianVotes, rametronenterpriseVotes)
 
 	if Rametronenterprises == nil || rametronenterpriseTotalStakes == nil {
 		return
@@ -432,9 +435,11 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 	}
 
 	// the source of the stake divides the block reward proportional to their stake
-	totalReward := big.NewInt(1).Mul(rametronenterprisePTXRewardPerBlock, big.NewInt(common.CheckpointInterval))
+	totalReward := big.NewInt(1).Mul(rametronenterprisePTXRewardPerBlock, big.NewInt(common.CheckpointIntervalForRametron))
 
 	logger.Debugf("grantRametronenterpriseReward: totalEffectiveStake = %v, totalReward = %v", totalEffectiveStake, totalReward)
+	logger.Infof("Rametronenterprise reward added : %v distributed to all rametron stakers based on their stake values !",totalReward)
+
 
 	var srdsr *st.StakeRewardDistributionRuleSet
 	if blockHeight >= common.HeightEnablePando2 {
@@ -510,7 +515,7 @@ func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, acco
 				rewardAmount.Mul(totalReward, stake.Amount)
 				rewardAmount.Div(rewardAmount, totalStake)
 
-				logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stake.Source[:]), rewardAmount)
+				// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stake.Source[:]), rewardAmount)
 
 				// Calculate split
 				handleSplit(stake, srdsr, rewardAmount, accountReward)
@@ -531,7 +536,7 @@ func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, acco
 			rewardAmount.Div(rewardAmount, totalStake)
 			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
 
-			logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
+			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
 		}
 	}
 }
