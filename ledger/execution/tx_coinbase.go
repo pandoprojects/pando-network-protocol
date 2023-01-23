@@ -100,9 +100,9 @@ func (exec *CoinbaseTxExecutor) sanityCheck(chainID string, view *st.StoreView, 
 	guardianPool, rametronenterprisePool := RetrievePools(exec.consensus.GetLedger(), exec.chain, exec.db, tx.BlockHeight, guardianVotes, rametronenterpriseVotes)
 	expectedRewards = CalculateReward(exec.consensus.GetLedger(), view, validatorSet, guardianVotes, guardianPool, rametronenterpriseVotes, rametronenterprisePool)
 
-	// if len(expectedRewards) != len(tx.Outputs) {
-	// 	return result.Error("Number of rewarded account is incorrect")
-	// }
+	if len(expectedRewards) != len(tx.Outputs) {
+		// return result.Error("Number of rewarded account is incorrect")
+	}
 	// for _, output := range tx.Outputs {
 	// 	exp, ok := expectedRewards[string(output.Address[:])]
 	// 	if !ok || !exp.IsEqual(output.Coins) {
