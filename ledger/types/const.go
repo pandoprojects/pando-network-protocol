@@ -34,7 +34,7 @@ const (
 	MaximumTxGasLimitDec2022 uint64 = 20e6
 
 	// MinimumTransactionFeePTXWei specifies the minimum fee for a regular transaction
-	MinimumTransactionFeePTXWeiDec2022 uint64 = 1e17
+	MinimumTransactionFeePTXWeiDec2022 uint64 = 1e15
 	
 	// MaxAccountsAffectedPerTx specifies the max number of accounts one transaction is allowed to modify to avoid spamming
 	MaxAccountsAffectedPerTx = 512

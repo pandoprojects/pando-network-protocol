@@ -3,7 +3,7 @@ package core
 const (
 	MainnetChainID = "pandonet"
 
-	MainnetGenesisBlockHash = "0xcc336b0aa0a71faa4d73ee2efb6d3855080300b8f60864c585875655fe6abbda"
+	MainnetGenesisBlockHash = "0x294191fdd2a46c213dbb34dd61a873a293604080f6d5372a6e005a1673426b7a"
 
 	GenesisBlockHeight = uint64(0)
 )
