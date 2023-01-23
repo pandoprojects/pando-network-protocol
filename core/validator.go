@@ -145,13 +145,13 @@ func (s *ValidatorSet) HasMajorityVotes(votes []Vote) bool {
 		}
 	}
 
-	three := new(big.Int).SetUint64(3)
-	two := new(big.Int).SetUint64(2)
+	six := new(big.Int).SetUint64(3)
+	one := new(big.Int).SetUint64(1)
 	lhs := new(big.Int)
 	rhs := new(big.Int)
 
 	//return votedStake*3 > s.TotalStake()*2
-	return lhs.Mul(votedStake, three).Cmp(rhs.Mul(s.TotalStake(), two)) > 0
+	return lhs.Mul(votedStake, six).Cmp(rhs.Mul(s.TotalStake(), one)) > 0
 }
 
 // HasMajority checks whether a vote set has reach majority.
