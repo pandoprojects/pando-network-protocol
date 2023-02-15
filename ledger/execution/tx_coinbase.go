@@ -20,8 +20,8 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
-var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(12), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(16), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var ptxRewardN = 400                                                        // Reward receiver sampling params
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
@@ -103,13 +103,7 @@ func (exec *CoinbaseTxExecutor) sanityCheck(chainID string, view *st.StoreView, 
 	if len(expectedRewards) != len(tx.Outputs) {
 		// return result.Error("Number of rewarded account is incorrect")
 	}
-	// for _, output := range tx.Outputs {
-	// 	exp, ok := expectedRewards[string(output.Address[:])]
-	// 	if !ok || !exp.IsEqual(output.Coins) {
-	// 		return result.Error("Invalid rewards, address %v expecting %v, but is %v",
-	// 			output.Address, exp, output.Coins)
-	// 	}
-	// }
+	
 	return result.OK
 }
 
@@ -208,10 +202,6 @@ func CalculateReward(ledger core.Ledger, view *st.StoreView, validatorSet *core.
 		addrs = append(addrs, addr)
 	}
 	sort.Strings(addrs)
-	// for _, addr := range addrs {
-		// reward := accountReward[addr]
-		// logger.Infof("Total reward for account %v : %v", hex.EncodeToString([]byte(addr)), reward)
-	// }
 
 	return accountReward
 }
