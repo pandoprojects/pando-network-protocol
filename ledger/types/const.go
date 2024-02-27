@@ -28,7 +28,7 @@ const (
 	// June 2021 gas burn adjustment
 
 	// MinimumGasPrice is the minimum gas price for a smart contract transaction
-	MinimumGasPriceDec2022 uint64 = 4e10
+	MinimumGasPriceDec2022 uint64 = 4e12
 	
 	// MaximumTxGasLimit is the maximum gas limit for a smart contract transaction
 	MaximumTxGasLimitDec2022 uint64 = 20e6

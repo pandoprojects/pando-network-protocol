@@ -20,9 +20,8 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
-var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(16), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-
 var ptxRewardN = 400                                                        // Reward receiver sampling params
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
@@ -330,10 +329,6 @@ func grantValidatorAndGuardianReward(ledger core.Ledger, view *st.StoreView, val
 				continue
 			}
 
-			if stake.Source == "034bfe9293dc20c5d9f32a9349261c8df2f873c4"{
-                stake.Amount = 1000000000
-            }
-
 			totalStake.Add(totalStake, stake.Amount)
 
 			if _, exists := stakeGroupMap[stake.Source]; !exists {
@@ -472,6 +467,7 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 
 	rewardDistribution := srdsr.Get(stake.Holder)
 	if rewardDistribution == nil {
+		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(100), weiMultiplier), accountRewardMap)
 		addRewardToMap(stake.Source, reward, accountRewardMap)
 		return
 	}
