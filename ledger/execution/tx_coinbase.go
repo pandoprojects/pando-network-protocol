@@ -20,7 +20,7 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
-var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(16), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var ptxRewardN = 400                                                        // Reward receiver sampling params
 
