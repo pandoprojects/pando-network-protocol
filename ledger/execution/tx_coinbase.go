@@ -467,7 +467,7 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 
 	rewardDistribution := srdsr.Get(stake.Holder)
 	if rewardDistribution == nil {
-		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(3), weiMultiplier), accountRewardMap)
+		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(10), weiMultiplier), accountRewardMap)
 		addRewardToMap(stake.Source, reward, accountRewardMap)
 		return
 	}
@@ -525,7 +525,7 @@ func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, acco
 			rewardAmount := big.NewInt(1)
 			rewardAmount.Mul(totalReward, totalSourceStake)
 			rewardAmount.Div(rewardAmount, totalStake)
-			addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(3), weiMultiplier), accountReward)
+			addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(10), weiMultiplier), accountReward)
 			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
 
 			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
@@ -635,7 +635,7 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 				rewardAmount := tmp.Div(tmp, big.NewInt(int64(ptxRewardN)))
 
 				addRewardToMap(stakeSourceAddr, rewardAmount, accountReward)
-				addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(3), weiMultiplier), accountReward)
+				addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(10), weiMultiplier), accountReward)
 				logger.Infof("%v reward for staker %v : %v (before split)", rewardType, hex.EncodeToString(stakeSourceAddr[:]), rewardAmount)
 			}
 		}
