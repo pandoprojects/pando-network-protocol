@@ -467,7 +467,7 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 
 	rewardDistribution := srdsr.Get(stake.Holder)
 	if rewardDistribution == nil {
-		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(100), weiMultiplier), accountRewardMap)
+		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(10), weiMultiplier), accountRewardMap)
 		addRewardToMap(stake.Source, reward, accountRewardMap)
 		return
 	}
