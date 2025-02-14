@@ -572,6 +572,7 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 			for _, stake := range stakes {
 				stakeSourceAddr := stake.Source
 				stakeAmountSum := stake.Amount
+				logger.Infof("issueRandomizedReward :: if case :: staker val %v and stake amount %v ", stakeSourceAddr, stakeAmountSum)
 
 				if curr >= ptxRewardN {
 					break
@@ -613,7 +614,7 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 			for _, stake := range stakes {
 				stakeAmountSum.Add(stakeAmountSum, stake.Amount)
 			}
-
+			logger.Infof("issueRandomizedReward :: else case :: staker val %v and stake amount %v ", stakeSourceAddr, stakeAmountSum)
 			if curr >= ptxRewardN {
 				break
 			}
