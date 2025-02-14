@@ -205,7 +205,7 @@ func (vcp *ValidatorCandidatePool) GetTopStakeHolders(maxNumStakeHolders int) []
 func (vcp *ValidatorCandidatePool) DepositStake(source common.Address, holder common.Address, amount *big.Int, blockHeight uint64) (err error) {
 	minValidatorStake := MinValidatorStakeDeposit
 	if blockHeight >= common.HeightZytaStakeChangedTo10000K {
-		minValidatorStake = MinValidatorStakeDeposit10000K
+		minValidatorStake = MinValidatorStakeDeposit
 	}
 	if amount.Cmp(minValidatorStake) < 0 {
 		return fmt.Errorf("insufficient stake: %v", amount)

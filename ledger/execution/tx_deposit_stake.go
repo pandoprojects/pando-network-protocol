@@ -84,7 +84,7 @@ func (exec *DepositStakeExecutor) sanityCheck(chainID string, view *st.StoreView
 	if tx.Purpose == core.StakeForValidator {
 		minValidatorStake := core.MinValidatorStakeDeposit
 		if blockHeight >= common.HeightZytaStakeChangedTo10000K {
-			minValidatorStake = core.MinValidatorStakeDeposit10000K
+			minValidatorStake = core.MinValidatorStakeDeposit
 		}
 		if stake.PTXWei.Cmp(minValidatorStake) < 0 {
 			return result.Error("Insufficient amount of stake, at least %v PTXWei is required for each validator deposit", minValidatorStake).
@@ -95,7 +95,7 @@ func (exec *DepositStakeExecutor) sanityCheck(chainID string, view *st.StoreView
 	if tx.Purpose == core.StakeForGuardian {
 		minGuardianStake := core.MinGuardianStakeDeposit
 		if blockHeight >= common.HeightLowerMetaStakeThresholdTo10000 {
-			minGuardianStake = core.MinGuardianStakeDeposit10000
+			minGuardianStake = core.MinGuardianStakeDeposit
 		}
 		if stake.PTXWei.Cmp(minGuardianStake) < 0 {
 			return result.Error("Insufficient amount of stake, at least %v PTXWei is required for each guardian deposit", minGuardianStake).
@@ -108,7 +108,7 @@ func (exec *DepositStakeExecutor) sanityCheck(chainID string, view *st.StoreView
 			return result.Error(fmt.Sprintf("Rametronenterprise staking not enabled yet, please wait until block height %v", common.HeightEnablePando2)).WithErrorCode(result.CodeGenericError)
 		}
 
-		minRametronenterpriseStake := core.MinRametronenterpriseStakeDeposit
+		minRametronenterpriseStake := core.MinRametronmobileStakeDeposit
 		// maxRametronenterpriseStake := core.MaxRametronenterpriseStakeDeposit
 
 		if stake.PandoWei.Cmp(big.NewInt(0)) > 0 {
@@ -134,7 +134,7 @@ func (exec *DepositStakeExecutor) sanityCheck(chainID string, view *st.StoreView
 			return result.Error(fmt.Sprintf("Rametronpro staking not enabled yet, please wait until block height %v", common.HeightEnablePando2)).WithErrorCode(result.CodeGenericError)
 		}
 
-		minRametronproStake := core.MinRametronproStakeDeposit
+		minRametronproStake := core.MinRametronmobileStakeDeposit
 		
 		if stake.PandoWei.Cmp(big.NewInt(0)) > 0 {
 			return result.Error("Only PTX can be deposited for rametronpro").
@@ -154,7 +154,7 @@ func (exec *DepositStakeExecutor) sanityCheck(chainID string, view *st.StoreView
 			return result.Error(fmt.Sprintf("Rametronlite staking not enabled yet, please wait until block height %v", common.HeightEnablePando2)).WithErrorCode(result.CodeGenericError)
 		}
 
-		minRametronliteStake := core.MinRametronliteStakeDeposit
+		minRametronliteStake := core.MinRametronmobileStakeDeposit
 		
 		if stake.PandoWei.Cmp(big.NewInt(0)) > 0 {
 			return result.Error("Only PTX can be deposited for Rametronlite").

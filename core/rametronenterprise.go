@@ -257,10 +257,10 @@ var (
 
 func init() {
 	// Each rametronenterprise stake deposit needs to be at least 10,000 PTX
-	MinRametronenterpriseStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(35000), new(big.Int).SetUint64(1e18))
-	MinRametronproStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(10000), new(big.Int).SetUint64(1e18))
-	MinRametronliteStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(1000), new(big.Int).SetUint64(1e18))
-	MinRametronmobileStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(250), new(big.Int).SetUint64(1e18))
+	MinRametronenterpriseStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(90000), new(big.Int).SetUint64(1e18))
+	MinRametronproStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(45000), new(big.Int).SetUint64(1e18))
+	MinRametronliteStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(22500), new(big.Int).SetUint64(1e18))
+	MinRametronmobileStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(1000), new(big.Int).SetUint64(1e18))
 
 	// Each rametronenterprise stake deposit should not exceed 500,000 PTX
 	// MaxRametronenterpriseStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(500000), new(big.Int).SetUint64(1e18))

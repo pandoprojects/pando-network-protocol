@@ -165,7 +165,7 @@ func init() {
 	MinGuardianStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(3000), new(big.Int).SetUint64(1e18))
 
 	// Lowering the guardian stake threshold to 1,000 Pando
-	MinGuardianStakeDeposit10000 = new(big.Int).Mul(new(big.Int).SetUint64(10000), new(big.Int).SetUint64(1e18))
+	MinGuardianStakeDeposit10000 = new(big.Int).Mul(new(big.Int).SetUint64(300000), new(big.Int).SetUint64(1e18))
 
 }
 
@@ -300,7 +300,7 @@ func (gcp *GuardianCandidatePool) Hash() common.Hash {
 func (gcp *GuardianCandidatePool) DepositStake(source common.Address, holder common.Address, amount *big.Int, pubkey *bls.PublicKey, blockHeight uint64) (err error) {
 	minGuardianStake := MinGuardianStakeDeposit
 	if blockHeight >= common.HeightLowerMetaStakeThresholdTo10000 {
-		minGuardianStake = MinGuardianStakeDeposit10000
+		minGuardianStake = MinGuardianStakeDeposit
 	}
 	if amount.Cmp(minGuardianStake) < 0 {
 		return fmt.Errorf("Insufficient stake: %v", amount)
