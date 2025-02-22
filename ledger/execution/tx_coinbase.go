@@ -22,9 +22,15 @@ import (
 var weiMultiplier = big.NewInt(1e18)
 var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var ptxRewardN = 400                                                        // Reward receiver sampling params
+var ptxRewardN = 400 
+var minValidatorReward = big.NewInt(1).Mul(big.NewInt(10000000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+                                         // Reward receiver sampling params
+var minGaurdianReward = big.NewInt(1).Mul(big.NewInt(300000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+var minRTReward = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
+
+
 
 // ------------------------------- Coinbase Transaction -----------------------------------
 
@@ -245,6 +251,11 @@ func grantValidatorReward(ledger core.Ledger, view *st.StoreView, validatorSet *
 			}
 			stakeAmount := stake.Amount
 			stakeSource := stake.Source
+			if stakeAmount.Cmp(minValidatorReward) < 0 {
+				continue
+			}
+			logger.Infof("grantValidatorReward :: if case :: staker val %v and stake amount %v ", stakeSource, stakeAmount)
+
 			if stakeAmountSum, exists := stakeSourceMap[stakeSource]; exists {
 				stakeAmountSum := big.NewInt(0).Add(stakeAmountSum, stakeAmount)
 				stakeSourceMap[stakeSource] = stakeAmountSum
@@ -309,6 +320,13 @@ func grantValidatorAndGuardianReward(ledger core.Ledger, view *st.StoreView, val
 			if stake.Withdrawn {
 				continue
 			}
+			stakeSource := stake.Source
+			stakeAmount := stake.Amount
+			if stakeAmount.Cmp(minValidatorReward) < 0 {
+				continue
+			}
+			logger.Infof("grantValidatorReward :: if case :: staker val %v and stake amount %v ", stakeSource, stakeAmount)
+
 			if _, exists := stakeGroupMap[stake.Source]; !exists {
 				stakeGroupMap[stake.Source] = len(effectiveStakes)
 				effectiveStakes = append(effectiveStakes, []*core.Stake{})
@@ -328,7 +346,12 @@ func grantValidatorAndGuardianReward(ledger core.Ledger, view *st.StoreView, val
 			if stake.Withdrawn {
 				continue
 			}
-
+			stakeAmount := stake.Amount
+			stakeSource := stake.Source
+			logger.Infof("grantGaurdianReward :: if case :: staker val %v and stake amount %v ", stakeSource, stakeAmount)
+			if stakeAmount.Cmp(minGaurdianReward) < 0 {
+				continue
+			}
 			totalStake.Add(totalStake, stake.Amount)
 
 			if _, exists := stakeGroupMap[stake.Source]; !exists {
@@ -400,7 +423,12 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 			if stake.Withdrawn {
 				continue
 			}
+			stakeAmount := stake.Amount
+			if stakeAmount.Cmp(minRTReward) < 0 {
+				continue
+			}
 			// for Rametronenterprise reward calculation
+
 			effectiveStakeAmount := big.NewInt(1)
 			effectiveStakeAmount.Mul(amplifiedWeight, stake.Amount)
 			effectiveStakeAmount.Div(effectiveStakeAmount, rametronenterpriseTotalStake)
@@ -437,7 +465,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 	}
 
 	// the source of the stake divides the block reward proportional to their stake
-	issueFixedReward(effectiveStakes, totalEffectiveStake, accountReward, totalReward, srdsr, "rametronenterprise")
+	issueFixedRewardForRT(effectiveStakes, totalEffectiveStake, accountReward, totalReward, srdsr)
 
 }
 
@@ -493,6 +521,44 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 	addRewardToMap(stake.Source, sourceReward, accountRewardMap)
 	addRewardToMap(rewardDistribution.Beneficiary, splitReward, accountRewardMap)
 }
+
+func issueFixedRewardForRT(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet) {
+	if totalStake.Cmp(big.NewInt(0)) == 0 {
+		return
+	}
+
+	if srdsr != nil {
+		for _, stakes := range effectiveStakes {
+			for _, stake := range stakes {
+				rewardAmount := big.NewInt(1)
+				rewardAmount.Mul(totalReward, stake.Amount)
+				rewardAmount.Div(rewardAmount, totalStake)
+				logger.Infof("first for RT ")
+				// Calculate split
+				handleSplit(stake, srdsr, rewardAmount, accountReward)
+			}
+		}
+	} else {
+		// Aggregate all stakes of a source before calculating reward to be compatible with previous algorithm
+		for _, stakes := range effectiveStakes {
+			if len(stakes) == 0 {
+				continue
+			}
+			totalSourceStake := big.NewInt(0)
+			for _, stake := range stakes {
+				totalSourceStake.Add(totalSourceStake, stake.Amount)
+			}
+			rewardAmount := big.NewInt(1)
+			rewardAmount.Mul(totalReward, totalSourceStake)
+			rewardAmount.Div(rewardAmount, totalStake)
+			logger.Infof("second for RT ")
+			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
+
+			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
+		}
+	}
+}
+
 
 func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet, rewardType string) {
 	if totalStake.Cmp(big.NewInt(0)) == 0 {
