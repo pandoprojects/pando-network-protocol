@@ -20,6 +20,9 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
+var weiMultiplier16 = big.NewInt(1e16)
+var weiMultiplier17 = big.NewInt(1e17)
+var weiMultiplier15 = big.NewInt(1e15)
 var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 // var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) 
 var ptxRewardN = 400 
@@ -36,29 +39,29 @@ var defaultrtReward = big.NewInt(1).Mul(big.NewInt(0), weiMultiplier)
 // RTE settings
 var RTEUP = big.NewInt(1).Mul(big.NewInt(180000), weiMultiplier) 
 var RTEMIN = big.NewInt(1).Mul(big.NewInt(90000), weiMultiplier) 
-var RTE_UPPER_PER = 0.1
-var RTE_LOWER_PER = 0.07
+var RTE_UPPER_PER = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier16) 
+var RTE_LOWER_PER = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier16) 
 
 // RT Pro Settings
 var RTPUP = big.NewInt(1).Mul(big.NewInt(67500), weiMultiplier) 
 var RTPMIN = big.NewInt(1).Mul(big.NewInt(45000), weiMultiplier) 
-var RTP_UPPER_PER = 0.06
-var RTP_LOWER_PER = 0.05
+var RTP_UPPER_PER = big.NewInt(1).Mul(big.NewInt(6), weiMultiplier16) 
+var RTP_LOWER_PER = big.NewInt(1).Mul(big.NewInt(5), weiMultiplier16)
 
 
 // RT Lite Settings
 var RTLUP = big.NewInt(1).Mul(big.NewInt(33750), weiMultiplier) 
 var RTLMIN = big.NewInt(1).Mul(big.NewInt(22500), weiMultiplier) 
-var RTL_UPPER_PER = 0.045
-var RTL_LOWER_PER = 0.04
+var RTL_UPPER_PER = big.NewInt(1).Mul(big.NewInt(45), weiMultiplier15)
+var RTL_LOWER_PER = big.NewInt(1).Mul(big.NewInt(4), weiMultiplier16)
 
 
 
 // RT Mobile Settings
 var RTMUP = big.NewInt(1).Mul(big.NewInt(11250), weiMultiplier) 
 var RTMMIN = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) 
-var RTM_UPPER_PER = 0.035
-var RTM_LOWER_PER = 0.03
+var RTM_UPPER_PER = big.NewInt(1).Mul(big.NewInt(35), weiMultiplier15)
+var RTM_LOWER_PER = big.NewInt(1).Mul(big.NewInt(3), weiMultiplier16)
 
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
