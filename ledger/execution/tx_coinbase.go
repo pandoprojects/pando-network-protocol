@@ -462,32 +462,32 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 			switch {
 				
 				case stakeAmount.Cmp(RTEUP) > 0:
-					rewardAmount := stakeAmount * RTE_UPPER_PER
+					rewardAmount.Mul(stakeAmount, RTE_UPPER_PER)
 
 				case stakeAmount.Cmp(RTMMIN) > 0:
-					rewardAmount := stakeAmount * RTE_LOWER_PER
-
-
+					rewardAmount.Mul(stakeAmount, RTE_LOWER_PER)
+	
 				case stakeAmount.Cmp(RTPUP) > 0:
-					rewardAmount := stakeAmount * RTP_UPPER_PER
-
+					rewardAmount.Mul(stakeAmount, RTP_UPPER_PER)
+					
 				case stakeAmount.Cmp(RTPMIN) > 0:
-					rewardAmount := stakeAmount * RTP_LOWER_PER
-
+					rewardAmount.Mul(stakeAmount, RTP_LOWER_PER)
+				
 				case stakeAmount.Cmp(RTLUP) > 0:
-					rewardAmount := stakeAmount * RTL_UPPER_PER
-
+					rewardAmount.Mul(stakeAmount, RTL_UPPER_PER)
+				
 				case stakeAmount.Cmp(RTLMIN) > 0:
-					rewardAmount := stakeAmount * RTL_LOWER_PER
-
+					rewardAmount.Mul(stakeAmount, RTL_LOWER_PER)
+				
 				case stakeAmount.Cmp(RTMUP) > 0:
-					rewardAmount := stakeAmount * RTM_UPPER_PER
-
+					rewardAmount.Mul(stakeAmount, RTM_UPPER_PER)
+					
 				case stakeAmount.Cmp(RTMMIN) > 0:
-					rewardAmount := stakeAmount * RTM_LOWER_PER
-
+					rewardAmount.Mul(stakeAmount, RTM_LOWER_PER)
+			
 				default:
-					rewardAmount := stakeAmount * defaultrtReward
+					rewardAmount.Mul(stakeAmount, defaultrtReward)
+				
 				}
 
 				logger.Infof("rametron ::onlycase :: staker val %v and stake amount %v ", stake.Source, rewardAmount)
