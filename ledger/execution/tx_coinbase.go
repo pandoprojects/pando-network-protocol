@@ -438,10 +438,10 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 		return
 	}
 
-	amplifier := new(big.Int).SetUint64(1e18)
+	// amplifier := new(big.Int).SetUint64(1e18)
 	for _, 	rametronenterpriseAddr := range Rametronenterprises {
 		
-		weight := big.NewInt(int64(1))
+		// weight := big.NewInt(int64(1))
 		rametronenterpriseTotalStake := view.GetTotalRametronenterpriseStake()
 		if rametronenterpriseTotalStake.Cmp(big.NewInt(0)) == 0 {
 			continue
