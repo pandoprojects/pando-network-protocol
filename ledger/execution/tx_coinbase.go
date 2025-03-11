@@ -454,7 +454,6 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 			}
 			stakeAmount := stake.Amount
 			stakeSource := stake.Source
-			logger.Infof("rametron :: if case :: staker val %v and stake amount %v ", stakeSource, stakeAmount)
 			if stakeAmount.Cmp(minRTReward) < 0 {
 				continue
 			}
@@ -506,7 +505,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 					continue
 				}
 
-				logger.Infof("rametron ::onlycase :: staker val %v and stake amount %v ", stake.Source, rewardAmount)
+				logger.Infof("rametron: staker val %v and stake amount %v ", stake.Source, rewardAmount)
 			addRewardToMap(stake.Source, rewardAmount, accountReward)
 		}
 	}
@@ -538,7 +537,7 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 
 	rewardDistribution := srdsr.Get(stake.Holder)
 	if rewardDistribution == nil {
-		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(10), weiMultiplier), accountRewardMap)
+		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(5), weiMultiplier), accountRewardMap)
 		addRewardToMap(stake.Source, reward, accountRewardMap)
 		return
 	}
