@@ -20,9 +20,9 @@ import (
 )
 
 var weiMultiplier = big.NewInt(1e18)
-var weiMultiplier16 = big.NewInt(1e16)
-var weiMultiplier17 = big.NewInt(1e17)
-var weiMultiplier15 = big.NewInt(1e15)
+var weiMultiplier19 = big.NewInt(1e19)
+var weiMultiplier20 = big.NewInt(1e20)
+
 var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 // var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) 
 var ptxRewardN = 400 
@@ -39,29 +39,29 @@ var defaultrtReward = big.NewInt(1).Mul(big.NewInt(0), weiMultiplier)
 // RTE settings
 var RTEUP = big.NewInt(1).Mul(big.NewInt(117999), weiMultiplier) 
 var RTEMIN = big.NewInt(1).Mul(big.NewInt(89999), weiMultiplier) 
-var RTE_UPPER_PER = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier16) 
-var RTE_LOWER_PER = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier16) 
+var RTE_UPPER_PER = big.NewInt(10)
+var RTE_LOWER_PER = big.NewInt(7) 
 
 // RT Pro Settings
 var RTPUP = big.NewInt(1).Mul(big.NewInt(67499), weiMultiplier) 
 var RTPMIN = big.NewInt(1).Mul(big.NewInt(44999), weiMultiplier) 
-var RTP_UPPER_PER = big.NewInt(1).Mul(big.NewInt(6), weiMultiplier16) 
-var RTP_LOWER_PER = big.NewInt(1).Mul(big.NewInt(5), weiMultiplier16)
+var RTP_UPPER_PER = big.NewInt(6)
+var RTP_LOWER_PER = big.NewInt(5)
 
 
 // RT Lite Settings
 var RTLUP = big.NewInt(1).Mul(big.NewInt(33749), weiMultiplier) 
 var RTLMIN = big.NewInt(1).Mul(big.NewInt(22499), weiMultiplier) 
-var RTL_UPPER_PER = big.NewInt(1).Mul(big.NewInt(45), weiMultiplier15)
-var RTL_LOWER_PER = big.NewInt(1).Mul(big.NewInt(4), weiMultiplier16)
+var RTL_UPPER_PER = big.NewInt(45)
+var RTL_LOWER_PER = big.NewInt(4)
 
 
 
 // RT Mobile Settings
 var RTMUP = big.NewInt(1).Mul(big.NewInt(11249), weiMultiplier) 
 var RTMMIN = big.NewInt(1).Mul(big.NewInt(999), weiMultiplier) 
-var RTM_UPPER_PER = big.NewInt(1).Mul(big.NewInt(35), weiMultiplier15)
-var RTM_LOWER_PER = big.NewInt(1).Mul(big.NewInt(3), weiMultiplier16)
+var RTM_UPPER_PER = big.NewInt(35)
+var RTM_LOWER_PER = big.NewInt(3)
 
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
@@ -464,27 +464,36 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 				
 				case stakeAmount.Cmp(RTEUP) > 0:
 					rewardAmount.Mul(stakeAmount, RTE_UPPER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 
-				case stakeAmount.Cmp(RTMMIN) > 0:
+				case stakeAmount.Cmp(RTEUP) > 0:
 					rewardAmount.Mul(stakeAmount, RTE_LOWER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 	
 				case stakeAmount.Cmp(RTPUP) > 0:
 					rewardAmount.Mul(stakeAmount, RTP_UPPER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
+					
 					
 				case stakeAmount.Cmp(RTPMIN) > 0:
 					rewardAmount.Mul(stakeAmount, RTP_LOWER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 				
 				case stakeAmount.Cmp(RTLUP) > 0:
 					rewardAmount.Mul(stakeAmount, RTL_UPPER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 				
 				case stakeAmount.Cmp(RTLMIN) > 0:
 					rewardAmount.Mul(stakeAmount, RTL_LOWER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 				
 				case stakeAmount.Cmp(RTMUP) > 0:
 					rewardAmount.Mul(stakeAmount, RTM_UPPER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 					
 				case stakeAmount.Cmp(RTMMIN) > 0:
 					rewardAmount.Mul(stakeAmount, RTM_LOWER_PER)
+					rewardAmount.Div(rewardAmount, weiMultiplier)
 			
 				default:
 					continue
