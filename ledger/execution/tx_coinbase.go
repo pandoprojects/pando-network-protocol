@@ -420,9 +420,9 @@ func grantValidatorAndGuardianReward(ledger core.Ledger, view *st.StoreView, val
 // grant uptime mining rewards to active rametronenterprise (they are the ptx stakers)
 func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guardianVotes *core.AggregatedVotes, rametronenterpriseVotes *core.AggregatedRametronenterpriseVotes,
 	rametronenterprisePool core.RametronenterprisePool, accountReward *map[string]types.Coins, blockHeight uint64) {
-	if !common.IsCheckPointHeight(blockHeight) {
-		return
-	}
+	// if !common.IsCheckPointHeight(blockHeight) {
+	// 	return
+	// }
 	if !common.IsCheckPointHeightForRametron(blockHeight) {
 		return
 	}
