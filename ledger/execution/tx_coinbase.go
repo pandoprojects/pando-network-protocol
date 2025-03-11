@@ -37,29 +37,29 @@ var minRTReward = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier)
 
 var defaultrtReward = big.NewInt(1).Mul(big.NewInt(0), weiMultiplier) 
 // RTE settings
-var RTEUP = big.NewInt(1).Mul(big.NewInt(180000), weiMultiplier) 
-var RTEMIN = big.NewInt(1).Mul(big.NewInt(90000), weiMultiplier) 
+var RTEUP = big.NewInt(1).Mul(big.NewInt(117999), weiMultiplier) 
+var RTEMIN = big.NewInt(1).Mul(big.NewInt(89999), weiMultiplier) 
 var RTE_UPPER_PER = big.NewInt(1).Mul(big.NewInt(10), weiMultiplier16) 
 var RTE_LOWER_PER = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier16) 
 
 // RT Pro Settings
-var RTPUP = big.NewInt(1).Mul(big.NewInt(67500), weiMultiplier) 
-var RTPMIN = big.NewInt(1).Mul(big.NewInt(45000), weiMultiplier) 
+var RTPUP = big.NewInt(1).Mul(big.NewInt(67499), weiMultiplier) 
+var RTPMIN = big.NewInt(1).Mul(big.NewInt(44999), weiMultiplier) 
 var RTP_UPPER_PER = big.NewInt(1).Mul(big.NewInt(6), weiMultiplier16) 
 var RTP_LOWER_PER = big.NewInt(1).Mul(big.NewInt(5), weiMultiplier16)
 
 
 // RT Lite Settings
-var RTLUP = big.NewInt(1).Mul(big.NewInt(33750), weiMultiplier) 
-var RTLMIN = big.NewInt(1).Mul(big.NewInt(22500), weiMultiplier) 
+var RTLUP = big.NewInt(1).Mul(big.NewInt(33749), weiMultiplier) 
+var RTLMIN = big.NewInt(1).Mul(big.NewInt(22499), weiMultiplier) 
 var RTL_UPPER_PER = big.NewInt(1).Mul(big.NewInt(45), weiMultiplier15)
 var RTL_LOWER_PER = big.NewInt(1).Mul(big.NewInt(4), weiMultiplier16)
 
 
 
 // RT Mobile Settings
-var RTMUP = big.NewInt(1).Mul(big.NewInt(11250), weiMultiplier) 
-var RTMMIN = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) 
+var RTMUP = big.NewInt(1).Mul(big.NewInt(11249), weiMultiplier) 
+var RTMMIN = big.NewInt(1).Mul(big.NewInt(999), weiMultiplier) 
 var RTM_UPPER_PER = big.NewInt(1).Mul(big.NewInt(35), weiMultiplier15)
 var RTM_LOWER_PER = big.NewInt(1).Mul(big.NewInt(3), weiMultiplier16)
 
@@ -487,8 +487,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 					rewardAmount.Mul(stakeAmount, RTM_LOWER_PER)
 			
 				default:
-					rewardAmount.Mul(stakeAmount, defaultrtReward)
-				
+					continue
 				}
 
 				logger.Infof("rametron ::onlycase :: staker val %v and stake amount %v ", stake.Source, rewardAmount)
