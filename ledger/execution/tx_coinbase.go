@@ -465,7 +465,7 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 					rewardAmount.Mul(stakeAmount, RTE_UPPER_PER)
 					rewardAmount.Div(rewardAmount, wei100)
 
-				case stakeAmount.Cmp(RTEUP) > 0:
+				case stakeAmount.Cmp(RTEMIN) > 0:
 					rewardAmount.Mul(stakeAmount, RTE_LOWER_PER)
 					rewardAmount.Div(rewardAmount, wei100)
 	
