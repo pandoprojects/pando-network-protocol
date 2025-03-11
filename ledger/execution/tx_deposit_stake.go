@@ -258,16 +258,20 @@ func (exec *DepositStakeExecutor) process(chainID string, view *st.StoreView, vi
 			}
 		}
 
-		minRametronenterpriseStake := core.MinRametronenterpriseStakeDeposit
-		minRametronproStake := core.MinRametronproStakeDeposit
-		minRametronliteStake := core.MinRametronliteStakeDeposit
+		// assigned ssame value
+		
+		minRametronenterpriseStake := core.MinRametronmobileStakeDeposit
+		minRametronproStake := core.MinRametronmobileStakeDeposit
+		minRametronliteStake := core.MinRametronmobileStakeDeposit
 		minRametronmobileStake := core.MinRametronmobileStakeDeposit
+
+
 		if (tx.Purpose == core.StakeForRametronpro){
-			if stakeAmount.Cmp(minRametronmobileStake) < 0 {
+			if stakeAmount.Cmp(minRametronproStake) < 0 {
 				return common.Hash{}, result.Error("rametronpro staking amount below the lower limit: %v", stakeAmount)
 			}
 		}else if(tx.Purpose == core.StakeForRametronlite){
-			if stakeAmount.Cmp(minRametronmobileStake) < 0 {
+			if stakeAmount.Cmp(minRametronliteStake) < 0 {
 				return common.Hash{}, result.Error("rametronlite staking amount below the lower limit: %v", stakeAmount)
 			}
 		}else if(tx.Purpose == core.StakeForRametronmobile){
@@ -276,7 +280,7 @@ func (exec *DepositStakeExecutor) process(chainID string, view *st.StoreView, vi
 					
 			} 
 			}else if(tx.Purpose == core.StakeForRametronenterprise){
-				if stakeAmount.Cmp(minRametronmobileStake) < 0 {
+				if stakeAmount.Cmp(minRametronenterpriseStake) < 0 {
 					return common.Hash{}, result.Error("rametronenterprise staking amount below the lower limit: %v", stakeAmount)
 					
 			} 
