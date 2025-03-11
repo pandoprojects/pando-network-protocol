@@ -21,12 +21,45 @@ import (
 
 var weiMultiplier = big.NewInt(1e18)
 var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(7), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+// var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) 
 var ptxRewardN = 400 
-var minValidatorReward = big.NewInt(1).Mul(big.NewInt(10000000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-                                         // Reward receiver sampling params
-var minGaurdianReward = big.NewInt(1).Mul(big.NewInt(300000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-var minRTReward = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) // 144 PTX per block, corresponds to about 15% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
+
+// min staking to get reward
+var minValidatorReward = big.NewInt(1).Mul(big.NewInt(10000000), weiMultiplier) 
+var minGaurdianReward = big.NewInt(1).Mul(big.NewInt(300000), weiMultiplier) 
+var minRTReward = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) 
+
+// percetnage for rewards for rt all layers
+
+
+var defaultrtReward = big.NewInt(1).Mul(big.NewInt(0), weiMultiplier) 
+// RTE settings
+var RTEUP = big.NewInt(1).Mul(big.NewInt(180000), weiMultiplier) 
+var RTEMIN = big.NewInt(1).Mul(big.NewInt(90000), weiMultiplier) 
+var RTE_UPPER_PER = 0.1
+var RTE_LOWER_PER = 0.07
+
+// RT Pro Settings
+var RTPUP = big.NewInt(1).Mul(big.NewInt(67500), weiMultiplier) 
+var RTPMIN = big.NewInt(1).Mul(big.NewInt(45000), weiMultiplier) 
+var RTP_UPPER_PER = 0.06
+var RTP_LOWER_PER = 0.05
+
+
+// RT Lite Settings
+var RTLUP = big.NewInt(1).Mul(big.NewInt(33750), weiMultiplier) 
+var RTLMIN = big.NewInt(1).Mul(big.NewInt(22500), weiMultiplier) 
+var RTL_UPPER_PER = 0.045
+var RTL_LOWER_PER = 0.04
+
+
+
+// RT Mobile Settings
+var RTMUP = big.NewInt(1).Mul(big.NewInt(11250), weiMultiplier) 
+var RTMMIN = big.NewInt(1).Mul(big.NewInt(1000), weiMultiplier) 
+var RTM_UPPER_PER = 0.035
+var RTM_LOWER_PER = 0.03
+
 
 var _ TxExecutor = (*CoinbaseTxExecutor)(nil)
 
@@ -398,17 +431,10 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 		// Should never reach here
 		panic("guardianVotes == nil")
 	}
-
-	// logger.Debugf("grantRametronenterpriseReward: guardianVotes = %v, rametronenterpriseVotes = %v", guardianVotes, rametronenterpriseVotes)
-
 	if Rametronenterprises == nil || rametronenterpriseTotalStakes == nil {
 		return
 	}
-		
-	effectiveStakes := [][]*core.Stake{}          // For compatiblity with old sampling algorithm, stakes from the same staker are grouped together
-	stakeGroupMap := make(map[common.Address]int) // stake source address -> index of the group in the effectiveStakes slice
 
-	totalEffectiveStake := new(big.Int)
 	amplifier := new(big.Int).SetUint64(1e18)
 	for _, 	rametronenterpriseAddr := range Rametronenterprises {
 		
@@ -418,55 +444,53 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 			continue
 		}
 	
-		amplifiedWeight := big.NewInt(1).Mul(amplifier, weight)
+		// amplifiedWeight := big.NewInt(1).Mul(amplifier, weight)
 		for _, stake := range rametronenterpriseAddr.Stakes {
 			if stake.Withdrawn {
 				continue
 			}
 			stakeAmount := stake.Amount
+			stakeSource := stake.Source
 			if stakeAmount.Cmp(minRTReward) < 0 {
 				continue
 			}
-			// for Rametronenterprise reward calculation
+			logger.Infof("rametron :: if case :: staker val %v and stake amount %v ", stakeSource, stakeAmount)
+			rewardAmount := big.NewInt(1)
+			switch {
+				
+				case stakeAmount.Cmp(RTEUP) > 0:
+					rewardAmount := stakeAmount * RTE_UPPER_PER
 
-			effectiveStakeAmount := big.NewInt(1)
-			effectiveStakeAmount.Mul(amplifiedWeight, stake.Amount)
-			effectiveStakeAmount.Div(effectiveStakeAmount, rametronenterpriseTotalStake)
+				case stakeAmount.Cmp(RTMMIN) > 0:
+					rewardAmount := stakeAmount * RTE_LOWER_PER
 
-			effectiveStake := &core.Stake{
-				Holder: rametronenterpriseAddr.Holder,
-				Source: stake.Source,
-				Amount: effectiveStakeAmount,
-			}
-			if _, exists := stakeGroupMap[effectiveStake.Source]; !exists {
-				stakeGroupMap[effectiveStake.Source] = len(effectiveStakes)
-				effectiveStakes = append(effectiveStakes, []*core.Stake{})
-			}
-			idx := stakeGroupMap[effectiveStake.Source]
-			effectiveStakes[idx] = append(effectiveStakes[idx], effectiveStake)
 
-			totalEffectiveStake.Add(totalEffectiveStake, effectiveStakeAmount)
+				case stakeAmount.Cmp(RTPUP) > 0:
+					rewardAmount := stakeAmount * RTP_UPPER_PER
 
-			logger.Debugf("grantRametronenterpriseReward: rametronenterpriseAddr = %v, rametronenterpriseTotalStake = %v, weight = %v, staker: %v, stake = %v, effectiveStakeAmount = %v",
-				rametronenterpriseAddr, rametronenterpriseTotalStake, weight, stake.Source, stake.Amount, effectiveStakeAmount)
+				case stakeAmount.Cmp(RTPMIN) > 0:
+					rewardAmount := stakeAmount * RTP_LOWER_PER
+
+				case stakeAmount.Cmp(RTLUP) > 0:
+					rewardAmount := stakeAmount * RTL_UPPER_PER
+
+				case stakeAmount.Cmp(RTLMIN) > 0:
+					rewardAmount := stakeAmount * RTL_LOWER_PER
+
+				case stakeAmount.Cmp(RTMUP) > 0:
+					rewardAmount := stakeAmount * RTM_UPPER_PER
+
+				case stakeAmount.Cmp(RTMMIN) > 0:
+					rewardAmount := stakeAmount * RTM_LOWER_PER
+
+				default:
+					rewardAmount := stakeAmount * defaultrtReward
+				}
+
+				logger.Infof("rametron ::onlycase :: staker val %v and stake amount %v ", stake.Source, rewardAmount)
+			addRewardToMap(stake.Source, rewardAmount, accountReward)
 		}
 	}
-
-	// the source of the stake divides the block reward proportional to their stake
-	totalReward := big.NewInt(1).Mul(rametronenterprisePTXRewardPerBlock, big.NewInt(common.CheckpointIntervalForRametron))
-
-	logger.Debugf("grantRametronenterpriseReward: totalEffectiveStake = %v, totalReward = %v", totalEffectiveStake, totalReward)
-	logger.Infof("Rametronenterprise reward added : %v distributed to all rametron stakers based on their stake values !",totalReward)
-
-
-	var srdsr *st.StakeRewardDistributionRuleSet
-	if blockHeight >= common.HeightEnablePando2 {
-		srdsr = state.NewStakeRewardDistributionRuleSet(view)
-	}
-
-	// the source of the stake divides the block reward proportional to their stake
-	issueFixedRewardForRT(effectiveStakes, totalEffectiveStake, accountReward, totalReward, srdsr)
-
 }
 
 func addRewardToMap(receiver common.Address, amount *big.Int, accountReward *map[string]types.Coins) {
@@ -522,42 +546,42 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 	addRewardToMap(rewardDistribution.Beneficiary, splitReward, accountRewardMap)
 }
 
-func issueFixedRewardForRT(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet) {
-	if totalStake.Cmp(big.NewInt(0)) == 0 {
-		return
-	}
+// func issueFixedRewardForRT(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet) {
+// 	if totalStake.Cmp(big.NewInt(0)) == 0 {
+// 		return
+// 	}
 
-	if srdsr != nil {
-		for _, stakes := range effectiveStakes {
-			for _, stake := range stakes {
-				rewardAmount := big.NewInt(1)
-				rewardAmount.Mul(totalReward, stake.Amount)
-				rewardAmount.Div(rewardAmount, totalStake)
-				logger.Infof("first for RT ")
-				// Calculate split
-				handleSplit(stake, srdsr, rewardAmount, accountReward)
-			}
-		}
-	} else {
-		// Aggregate all stakes of a source before calculating reward to be compatible with previous algorithm
-		for _, stakes := range effectiveStakes {
-			if len(stakes) == 0 {
-				continue
-			}
-			totalSourceStake := big.NewInt(0)
-			for _, stake := range stakes {
-				totalSourceStake.Add(totalSourceStake, stake.Amount)
-			}
-			rewardAmount := big.NewInt(1)
-			rewardAmount.Mul(totalReward, totalSourceStake)
-			rewardAmount.Div(rewardAmount, totalStake)
-			logger.Infof("second for RT ")
-			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
+// 	if srdsr != nil {
+// 		for _, stakes := range effectiveStakes {
+// 			for _, stake := range stakes {
+// 				rewardAmount := big.NewInt(1)
+// 				rewardAmount.Mul(totalReward, stake.Amount)
+// 				rewardAmount.Div(rewardAmount, totalStake)
+// 				logger.Infof("first for RT ")
+// 				// Calculate split
+// 				handleSplit(stake, srdsr, rewardAmount, accountReward)
+// 			}
+// 		}
+// 	} else {
+// 		// Aggregate all stakes of a source before calculating reward to be compatible with previous algorithm
+// 		for _, stakes := range effectiveStakes {
+// 			if len(stakes) == 0 {
+// 				continue
+// 			}
+// 			totalSourceStake := big.NewInt(0)
+// 			for _, stake := range stakes {
+// 				totalSourceStake.Add(totalSourceStake, stake.Amount)
+// 			}
+// 			rewardAmount := big.NewInt(1)
+// 			rewardAmount.Mul(totalReward, totalSourceStake)
+// 			rewardAmount.Div(rewardAmount, totalStake)
+// 			logger.Infof("second for RT ")
+// 			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
 
-			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
-		}
-	}
-}
+// 			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
+// 		}
+// 	}
+// }
 
 
 func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet, rewardType string) {
@@ -638,8 +662,6 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 			for _, stake := range stakes {
 				stakeSourceAddr := stake.Source
 				stakeAmountSum := stake.Amount
-				logger.Infof("issueRandomizedReward :: if case :: staker val %v and stake amount %v ", stakeSourceAddr, stakeAmountSum)
-
 				if curr >= ptxRewardN {
 					break
 				}
@@ -680,7 +702,6 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 			for _, stake := range stakes {
 				stakeAmountSum.Add(stakeAmountSum, stake.Amount)
 			}
-			logger.Infof("issueRandomizedReward :: else case :: staker val %v and stake amount %v ", stakeSourceAddr, stakeAmountSum)
 			if curr >= ptxRewardN {
 				break
 			}

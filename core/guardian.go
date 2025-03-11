@@ -162,7 +162,7 @@ var (
 
 func init() {
 	// Each stake deposit needs to be at least 10,000 Pando
-	MinGuardianStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(3000), new(big.Int).SetUint64(1e18))
+	MinGuardianStakeDeposit = new(big.Int).Mul(new(big.Int).SetUint64(10000), new(big.Int).SetUint64(1e18))
 
 	// Lowering the guardian stake threshold to 1,000 Pando
 	MinGuardianStakeDeposit10000 = new(big.Int).Mul(new(big.Int).SetUint64(300000), new(big.Int).SetUint64(1e18))

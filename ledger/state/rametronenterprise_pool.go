@@ -75,7 +75,7 @@ func sampleRametronenterpriseWeight(reader io.Reader, stake *big.Int, totalStake
 		logger.Panicf("Negative total stake: %v", totalStake)
 	}
 
-	b := new(big.Int).Div(stake, core.MinRametronenterpriseStakeDeposit)
+	b := new(big.Int).Div(stake, core.MinRametronmobileStakeDeposit)
 
 	base := new(big.Int).SetUint64(1e18)
 
