@@ -15,7 +15,7 @@ const (
 	StakeForRametronpro uint8 = 3
 	StakeForRametronlite uint8 = 4
 	StakeForRametronmobile uint8 = 5
-	ReturnLockingPeriod uint64 = 1170000     // number of blocks, approximately 6 month block time
+	ReturnLockingPeriod uint64 = 1170000     // number of blocks, approximately 3 month block time
 	InvalidReturnHeight uint64 = ^uint64(0) // max uint64
 )
 

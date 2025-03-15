@@ -37,7 +37,7 @@ const HeightZytaStakeChangedTo10000K uint64 = 4417900
 const CheckpointInterval = int64(100)
 
 // CheckpointInterval defines the interval between checkpoints.
-const CheckpointIntervalForRametron = int64(410000)
+const CheckpointIntervalForRametron = int64(400000)
 
 // IsCheckPointHeight returns if a block height is a checkpoint.
 func IsCheckPointHeight(height uint64) bool {
