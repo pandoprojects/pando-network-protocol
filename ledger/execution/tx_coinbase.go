@@ -453,7 +453,6 @@ func grantRametronenterpriseReward(ledger core.Ledger, view *st.StoreView, guard
 				continue
 			}
 			stakeAmount := stake.Amount
-			stakeSource := stake.Source
 			if stakeAmount.Cmp(minRTReward) < 0 {
 				continue
 			}
