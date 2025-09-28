@@ -23,8 +23,7 @@ var weiMultiplier = big.NewInt(1e18)
 var wei100 = big.NewInt(100)
 var wei12 = big.NewInt(12)
 
-var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(6), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
-// var rametronenterprisePTXRewardPerBlock = big.NewInt(1).Mul(big.NewInt(1), weiMultiplier) 
+var ptxRewardPerBlock = big.NewInt(1).Mul(big.NewInt(14), weiMultiplier)    // 16 PTX per block, corresponds to about 1.7% *initial* annual inflation rate. The inflation rate naturally approaches 0 as the chain grows.
 var ptxRewardN = 400 
 
 // min staking to get reward
@@ -536,7 +535,7 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 
 	rewardDistribution := srdsr.Get(stake.Holder)
 	if rewardDistribution == nil {
-		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(5), weiMultiplier), accountRewardMap)
+		addRewardToMap(common.HexToAddress("0x034bfe9293dc20c5d9f32a9349261c8df2f873c4"), big.NewInt(1).Mul(big.NewInt(1), weiMultiplier), accountRewardMap)
 		addRewardToMap(stake.Source, reward, accountRewardMap)
 		return
 	}
@@ -562,43 +561,6 @@ func handleSplit(stake *core.Stake, srdsr *st.StakeRewardDistributionRuleSet, re
 	addRewardToMap(stake.Source, sourceReward, accountRewardMap)
 	addRewardToMap(rewardDistribution.Beneficiary, splitReward, accountRewardMap)
 }
-
-// func issueFixedRewardForRT(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet) {
-// 	if totalStake.Cmp(big.NewInt(0)) == 0 {
-// 		return
-// 	}
-
-// 	if srdsr != nil {
-// 		for _, stakes := range effectiveStakes {
-// 			for _, stake := range stakes {
-// 				rewardAmount := big.NewInt(1)
-// 				rewardAmount.Mul(totalReward, stake.Amount)
-// 				rewardAmount.Div(rewardAmount, totalStake)
-// 				logger.Infof("first for RT ")
-// 				// Calculate split
-// 				handleSplit(stake, srdsr, rewardAmount, accountReward)
-// 			}
-// 		}
-// 	} else {
-// 		// Aggregate all stakes of a source before calculating reward to be compatible with previous algorithm
-// 		for _, stakes := range effectiveStakes {
-// 			if len(stakes) == 0 {
-// 				continue
-// 			}
-// 			totalSourceStake := big.NewInt(0)
-// 			for _, stake := range stakes {
-// 				totalSourceStake.Add(totalSourceStake, stake.Amount)
-// 			}
-// 			rewardAmount := big.NewInt(1)
-// 			rewardAmount.Mul(totalReward, totalSourceStake)
-// 			rewardAmount.Div(rewardAmount, totalStake)
-// 			logger.Infof("second for RT ")
-// 			addRewardToMap(stakes[0].Source, rewardAmount, accountReward)
-
-// 			// logger.Infof("%v reward for staker %v : %v  (before split)", rewardType, hex.EncodeToString(stakes[0].Source[:]), rewardAmount)
-// 		}
-// 	}
-// }
 
 
 func issueFixedReward(effectiveStakes [][]*core.Stake, totalStake *big.Int, accountReward *map[string]types.Coins, totalReward *big.Int, srdsr *st.StakeRewardDistributionRuleSet, rewardType string) {
@@ -661,12 +623,6 @@ func issueRandomizedReward(ledger core.Ledger, guardianVotes *core.AggregatedVot
 			// Should not reach here
 			logger.Panic(err)
 		}
-
-		// // ---------- Just for testing ---------- //
-		// totalStakeFloat := new(big.Float).SetInt(totalStake)
-		// sampleFloat := new(big.Float).SetInt(samples[i])
-		// logger.Infof("RandSample -- r: %v, height: %v, totalStake: %v, sample[%v]: %v",
-		// 	new(big.Float).Quo(sampleFloat, totalStakeFloat).Text('f', 6), view.Height()+1, totalStake, i, samples[i])
 	}
 
 	sort.Sort(BigIntSort(samples))
