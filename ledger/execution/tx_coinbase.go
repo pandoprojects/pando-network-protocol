@@ -51,7 +51,7 @@ var RTP_LOWER_PER = big.NewInt(5)
 // RT Lite Settings
 var RTLUP = big.NewInt(1).Mul(big.NewInt(33749), weiMultiplier) 
 var RTLMIN = big.NewInt(1).Mul(big.NewInt(22499), weiMultiplier) 
-var RTL_UPPER_PER = big.NewInt(45)
+var RTL_UPPER_PER = big.NewInt(4.5)
 var RTL_LOWER_PER = big.NewInt(4)
 
 
@@ -59,7 +59,7 @@ var RTL_LOWER_PER = big.NewInt(4)
 // RT Mobile Settings
 var RTMUP = big.NewInt(1).Mul(big.NewInt(11249), weiMultiplier) 
 var RTMMIN = big.NewInt(1).Mul(big.NewInt(999), weiMultiplier) 
-var RTM_UPPER_PER = big.NewInt(35)
+var RTM_UPPER_PER = big.NewInt(3.5)
 var RTM_LOWER_PER = big.NewInt(3)
 
 
